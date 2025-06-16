@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prediction Result</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-white to-indigo-100 min-h-screen flex items-center justify-center font-sans">
+  <div class="container px-4">
+    <h1 class="text-4xl font-bold text-center text-indigo-800 mb-8 animate-pulse">🏆 Prediction Result</h1>
+
+    <div class="max-w-md mx-auto glass p-8 rounded-2xl text-center">
+      <p class="text-2xl font-medium mb-4">
+        Prediction:
+        <span class="font-bold {{ 'text-green-600' if prediction == 'Chase Successful' else 'text-red-600' }}">
+          {{ prediction }}
+        </span>
+      </p>
+      <p class="text-lg text-gray-700 mb-6">
+        Probability of Success:
+        <span class="font-semibold text-blue-700">{{ "%.2f" % probability }}%</span>
+      </p>
+
+      <a href="/"
+         class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        🔁 Make Another Prediction
+      </a>
+    </div>
+  </div>
+</body>
+</html>

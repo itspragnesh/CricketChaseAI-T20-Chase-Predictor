@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>T20 Chase Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-blue-200 font-sans min-h-screen flex items-center justify-center">
+  <div class="container px-4">
+    <h1 class="text-4xl font-extrabold text-center text-blue-900 mb-2 transition-transform duration-300 hover:scale-105">
+      🏏 T20 Chase Prediction
+    </h1>
+    <p class="text-center text-gray-700 mb-6 text-lg">Fill in the second innings data to predict the chase outcome.</p>
+
+    <form action="/predict" method="POST" class="max-w-xl mx-auto p-8 rounded-xl glass">
+      {% for feature, placeholder, tooltip in [
+          ('Runs From Ball', 'e.g., 1', 'Runs scored on the current ball (0-7, e.g., 1, 4, 6)'),
+          ('Innings Runs', 'e.g., 100', 'Total runs scored by the team so far (0-250)'),
+          ('Innings Wickets', 'e.g., 3', 'Wickets lost by the team (0-10)'),
+          ('Balls Remaining', 'e.g., 60', 'Balls left in the innings (1-119)'),
+          ('Target Score', 'e.g., 180', 'Total runs needed to win (50-250)'),
+          ('Total Batter Runs', 'e.g., 45', 'Runs scored by the current batter (0-100+)'),
+          ('Total Non Striker Runs', 'e.g., 20', 'Runs scored by the non-striker (0-100+)'),
+          ('Batter Balls Faced', 'e.g., 30', 'Balls faced by the current batter (0-60+)'),
+          ('Non Striker Balls Faced', 'e.g., 15', 'Balls faced by the non-striker (0-60+)')
+      ] %}
+      <div class="mb-5 relative group">
+        <label for="{{ feature.replace(' ', '_').lower() }}" class="block text-sm font-semibold text-gray-700 mb-1">
+          {{ feature }}
+          <span class="ml-1 text-gray-400 cursor-help group-hover:text-blue-500" title="{{ tooltip }}">ℹ️</span>
+        </label>
+        <input
+          type="number"
+          step="any"
+          name="{{ feature.replace(' ', '_').lower() }}"
+          placeholder="{{ placeholder }}"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-300 focus:outline-none transition duration-200"
+        />
+      </div>
+      {% endfor %}
+
+      {% if error %}
+      <p class="text-red-600 text-sm font-medium mb-4">{{ error }}</p>
+      {% endif %}
+
+      <button type="submit"
+        class="w-full py-3 text-white bg-blue-600 hover:bg-blue-700 font-semibold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+        🔍 Predict Chase Outcome
+      </button>
+    </form>
+  </div>
+</body>
+</html>
