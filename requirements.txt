@@ -2,5 +2,6 @@ Flask==3.0.3
 numpy==1.26.4
 scikit-learn==1.5.2
 pyspark==3.5.3
-tensorflow
+tensorflow==2.14.0
+
 
